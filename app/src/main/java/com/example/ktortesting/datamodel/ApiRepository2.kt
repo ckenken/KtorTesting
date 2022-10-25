@@ -13,20 +13,17 @@ object ApiRepository2 {
         lang: String,
         withPetition: Boolean,
         nextKey: String,
-    ): RequestResult<SchoolResponse> {
-        val response = requestEngine.client.requestGet<SchoolResponse> {
-            url {
-                path("v3/countries/$country/schools")
-                parameters.appendAll(
-                    buildParametersOf(
-                        "lang" to lang,
-                        "withPetition" to withPetition,
-                        "nextKey" to nextKey,
-                    )
-                )
-            }
+    ): RequestResult<SchoolResponse> = requestEngine.client.requestGet {
+        url {
+            path("v3/countries/$country/schools")
+            parameters.appendAll(
+                buildParametersOf(
+                    "lang" to lang,
+                    "withPetition" to withPetition,
+                    "nextKey" to nextKey,
+                ),
+            )
         }
-        return response
     }
 }
 
