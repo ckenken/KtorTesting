@@ -20,7 +20,7 @@ object ApiRepository2 {
                 parameters.appendAll(
                     buildParametersOf(
                         "lang" to lang,
-                        "withPetition" to withPetition.toString(),
+                        "withPetition" to withPetition,
                         "nextKey" to nextKey,
                     )
                 )
