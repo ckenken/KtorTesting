@@ -1,7 +1,5 @@
 package com.example.ktortesting.datamodel
 
-import android.util.Log
-import com.example.ktortesting.struct.School
 import com.example.ktortesting.struct.SchoolResponse
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -17,7 +15,7 @@ object ApiRepository {
         lang: String,
         withPetition: Boolean,
         nextKey: String,
-    ): RequestResult<List<School>> {
+    ): RequestResult<SchoolResponse> {
         try {
             val response = requestEngine.client.get {
                 url {
@@ -36,10 +34,8 @@ object ApiRepository {
                     )
                 }
             }.body<SchoolResponse>()
-            Log.d("ckenken", "response = $response")
-            return RequestResult.Success(response.items)
+            return RequestResult.Success(response)
         } catch (t: Throwable) {
-            Log.e("ckenken", "error!", t)
             return RequestResult.Failed(t)
         }
     }

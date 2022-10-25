@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ktortesting.databinding.ActivityMainBinding
+import com.example.ktortesting.datamodel.RequestState
 import com.example.ktortesting.datamodel.isError
 import com.example.ktortesting.datamodel.isLoading
 import com.example.ktortesting.datamodel.isSuccess
@@ -38,6 +39,9 @@ class MainActivity : AppCompatActivity() {
         binding.listRecyclerView.apply {
             adapter = schoolListAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+        binding.errorImage.setOnClickListener {
+            viewModel.getSchools()
         }
     }
 
