@@ -21,10 +21,8 @@ fun buildParametersOf(
 
 fun buildParametersOf(
     map: Map<String, Any?>,
-): StringValues {
-    val stringValuesBuilderImpl = StringValuesBuilderImpl()
+): StringValues = StringValuesBuilderImpl().apply {
     map.mapNotNull { (key, value) ->
-        stringValuesBuilderImpl.append(key, value.toString())
+        append(key, value.toString())
     }
-    return stringValuesBuilderImpl.build()
-}
+}.build()
