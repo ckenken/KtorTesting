@@ -2,19 +2,17 @@ package com.example.ktortesting.datamodel
 
 import android.util.Log
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
-import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-object CIOClient : RequestClient {
+object CIOClient : RequestClient,
+    ProxyProvider by ProxyProviderImpl {
     override val client: HttpClient = HttpClient(CIO) {
         expectSuccess = true
 
@@ -32,6 +30,7 @@ object CIOClient : RequestClient {
             logger = Logger.DEFAULT
             level = LogLevel.ALL
         }
+
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true
@@ -40,8 +39,14 @@ object CIOClient : RequestClient {
                 coerceInputValues = true
             })
         }
+
         install(HttpTimeout) {
             this.requestTimeoutMillis
+        }
+
+        engine {
+            this.pipelining
+            proxy = getProxySettings()
         }
     }.apply {
         setupInterceptors(this)
@@ -58,5 +63,4 @@ object CIOClient : RequestClient {
             execute(request)
         }
     }
-
 }

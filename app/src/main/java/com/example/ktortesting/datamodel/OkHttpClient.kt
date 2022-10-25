@@ -8,7 +8,8 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-object OkHttpClient : RequestClient {
+object OkHttpClient : RequestClient,
+    ProxyProvider by ProxyProviderImpl {
     override val client: HttpClient
         get() = HttpClient(
             OkHttp.create {
@@ -30,6 +31,9 @@ object OkHttpClient : RequestClient {
                     ignoreUnknownKeys = true
                     coerceInputValues = true
                 })
+            }
+            engine {
+                proxy = getProxySettings()
             }
         }
 }
