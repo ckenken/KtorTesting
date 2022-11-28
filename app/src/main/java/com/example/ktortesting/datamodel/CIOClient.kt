@@ -1,6 +1,5 @@
 package com.example.ktortesting.datamodel
 
-import android.util.Log
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
@@ -47,20 +46,6 @@ object CIOClient : RequestClient,
         engine {
             this.pipelining
             proxy = getProxySettings()
-        }
-    }.apply {
-        setupInterceptors(this)
-    }
-
-    private fun setupInterceptors(client: HttpClient) {
-        client.plugin(HttpSend).intercept { request ->
-            Log.d("ckenken", "interceptor 1")
-            execute(request)
-        }
-
-        client.plugin(HttpSend).intercept { request ->
-            Log.d("ckenken", "interceptor 2")
-            execute(request)
         }
     }
 }

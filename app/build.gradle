@@ -70,6 +70,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.5.1"
     implementation "androidx.fragment:fragment-ktx:1.5.4"
 
+    implementation "androidx.paging:paging-runtime-ktx:3.2.0-alpha03"
+
     // Koin
     implementation "io.insert-koin:koin-android:3.2.3"
 //    implementation "io.insert-koin:koin-annotations:1.0.1"

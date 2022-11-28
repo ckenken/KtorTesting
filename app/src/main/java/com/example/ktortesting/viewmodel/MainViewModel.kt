@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel : ViewModel() {
+class  MainViewModel : ViewModel() {
 
     val pageData = MutableLiveData<RequestState<List<School>>>()
 
