@@ -7,8 +7,10 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import org.koin.core.annotation.Single
 
-object OkHttpClient : RequestClient,
+@Single
+class OkHttpClient : RequestClient,
     ProxyProvider by ProxyProviderImpl {
     override val client: HttpClient
         get() = HttpClient(

@@ -1,6 +1,5 @@
 package com.example.ktortesting.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
@@ -9,9 +8,10 @@ import com.example.ktortesting.struct.SchoolPagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import org.koin.android.annotation.KoinViewModel
 
-class MainPagingViewModel : ViewModel() {
+@KoinViewModel
+class MainPagingViewModel: ViewModel() {
 
     val pageData = getData()
 

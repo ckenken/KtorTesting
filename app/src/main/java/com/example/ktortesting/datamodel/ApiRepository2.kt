@@ -2,10 +2,11 @@ package com.example.ktortesting.datamodel
 
 import com.example.ktortesting.struct.SchoolResponse
 import io.ktor.http.*
-import org.koin.java.KoinJavaComponent.get
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-object ApiRepository2 {
-    private val requestEngine = get<RequestClient>(RequestClient::class.java)
+object ApiRepository2 : KoinComponent {
+    private val requestEngine: RequestClient by inject()
 
     //    https://api.dtto.com/v3/countries/JP/schools?nextKey=0:600&lang=jp&withPetition=true
     suspend fun getSchools(

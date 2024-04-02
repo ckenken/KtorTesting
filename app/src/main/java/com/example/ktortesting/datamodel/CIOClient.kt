@@ -9,8 +9,10 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import org.koin.core.annotation.Single
 
-object CIOClient : RequestClient,
+@Single
+class CIOClient : RequestClient,
     ProxyProvider by ProxyProviderImpl {
     override val client: HttpClient = HttpClient(CIO) {
         expectSuccess = true
