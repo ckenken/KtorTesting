@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ktortesting.datamodel.*
 import com.example.ktortesting.struct.School
+import com.example.ktortesting.struct.SchoolResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 
 class MainViewModel : ViewModel() {
 
@@ -26,7 +28,9 @@ class MainViewModel : ViewModel() {
             }.let {
                 when (it) {
                     is RequestResult.Success -> {
-                        RequestState.Success(it.result.items)
+                        val kkman = Json.decodeFromString(SchoolResponse.serializer(), it.result)
+                        RequestState.Success(kkman.items)
+//                        RequestState.Success(it.result.items)
                     }
                     is RequestResult.Failed -> {
                         RequestState.Error(it.error)

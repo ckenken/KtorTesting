@@ -17,10 +17,15 @@ data class School(
     @SerialName("name") val name: String,
     @SerialName("abbr") val abbr: String? = null,
     @SerialName("domain") val domain: String? = null,
-    @SerialName("zone") @Zone val zone: String? = null,
     @SerialName("aliasLong") val aliasLong: String? = null,
     @SerialName("aliasShort") val aliasShort: String? = null,
-    @SerialName("petition") val petition: PetitionInfo? = null
+    @SerialName("registrationOptions") val registrationOptions: List<String>? = null,
+    @SerialName("forumId") val forumId: String? = null,
+    @SerialName("zoneId") val zoneId: String? = null,
+    @SerialName("country") val country: String? = null,
+    @SerialName("zone") @Zone val zone: String? = null,
+    @SerialName("petition") val petition: PetitionInfo? = null,
+
 ) : Parcelable {
     @Target(AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.TYPE)
     annotation class Zone

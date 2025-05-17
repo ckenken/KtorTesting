@@ -31,7 +31,7 @@
         android:id="@+id/errorImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:src="@drawable/ic_launcher_background"
         tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

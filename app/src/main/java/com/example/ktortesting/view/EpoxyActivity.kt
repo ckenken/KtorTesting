@@ -1,28 +1,28 @@
 package com.example.ktortesting.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ktortesting.databinding.ActivityMainBinding
-import com.example.ktortesting.datamodel.RequestState
-import com.example.ktortesting.datamodel.isError
+import com.example.ktortesting.databinding.ActivityEpoxyBinding
 import com.example.ktortesting.datamodel.isLoading
 import com.example.ktortesting.datamodel.isSuccess
 import com.example.ktortesting.viewmodel.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class EpoxyActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityEpoxyBinding
 
     private val schoolListAdapter by lazy { SchoolListAdapter() }
 
+    private val singleTextController : SingleTextController by lazy { SingleTextController() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityMainBinding.inflate(
+        ActivityEpoxyBinding.inflate(
             layoutInflater,
             findViewById(android.R.id.content),
             false,
@@ -36,9 +36,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
+        val linearLayoutManager = LinearLayoutManager(this@EpoxyActivity)
         binding.listRecyclerView.apply {
-            adapter = schoolListAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
+//            adapter = schoolListAdapter
+            adapter = singleTextController.adapter
+            addItemDecoration(DividerItemDecoration(this@EpoxyActivity, linearLayoutManager.orientation))
+            layoutManager = linearLayoutManager
+//            singleTextController.requestModelBuild()
         }
         binding.errorImage.setOnClickListener {
             viewModel.getSchools()
@@ -47,12 +51,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         viewModel.pageData.observe(this) { state ->
-            Log.d("ckenken", "state = $state")
             binding.progressBar.isVisible = state.isLoading
-//            binding.errorImage.isVisible = state.isError
             binding.listRecyclerView.isVisible = state.isSuccess
             if (state.isSuccess) {
-                schoolListAdapter.items = state.data ?: listOf()
+//                schoolListAdapter.items = state.data ?: listOf()
+                singleTextController.schoolNameItems = state.data!!
+
             }
         }
     }

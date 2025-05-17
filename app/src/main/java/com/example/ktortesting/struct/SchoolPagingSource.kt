@@ -23,10 +23,15 @@ class SchoolPagingSource : PagingSource<String, School>() {
 
         return when (schools) {
             is RequestResult.Success -> {
+//                LoadResult.Page(
+//                    data = schools.result.items,
+//                    prevKey = if (nextKey == "0:30") null else "${start - 30}:30",
+//                    nextKey = schools.result.nextKey,
+//                )
                 LoadResult.Page(
-                    data = schools.result.items,
+                    data = emptyList(),
                     prevKey = if (nextKey == "0:30") null else "${start - 30}:30",
-                    nextKey = schools.result.nextKey,
+                    nextKey = "",
                 )
             }
             is RequestResult.Failed -> {
